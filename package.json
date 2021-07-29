@@ -1,0 +1,15 @@
+{
+  "name": "anime-character-random",
+  "version": "1.0.8",
+  "description": "get a random anime character",
+  "keywords": [
+    "Anime-character",
+    "Random-anime-character"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Reuben Chagas fernandes",
+  "license": "ISC"
+}
