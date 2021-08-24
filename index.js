@@ -4,7 +4,7 @@ let $
 
 exports.getRandomChar = (random) => {
 
-let limitid = Math.floor(Math.random() * 200)
+let limitid = Math.floor(Math.random() * 300)
 
   fetch(`https://myanimelist.net/topanime.php?limit=${limitid}`)
   .then(res => res.text())
@@ -22,7 +22,6 @@ let limitid = Math.floor(Math.random() * 200)
      fetch(encodeURI($('h3[class="h3_characters_voice_actors"] > a')[charid].attribs.href)).then(res => res.text())
      .then(body => {
       $ = cheerio.load(body)
-//console.log($('td[class="borderClass"] > div > a')[0].children[0].attribs)
  const CharImg = $('td[class="borderClass"] > div > a')[0].children[0].attribs['data-src']
 //console.log($('td[class="borderClass"] > div > a')[charid].children[0].attribs['data-src'])
 const animeCharacter = {

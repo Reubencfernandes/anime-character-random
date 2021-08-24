@@ -1,11 +1,18 @@
 # anime-character-random (Beta)
+#### example
+```js
+const animeCharacter = require('anime-character-random')
+animeCharacter.getRandomChar(function (anime) {
 
-
+console.log(anime)
+    
+})
+```
 
 
 
 
 # this package is in Beta testing
 
-Discord server : [Link] (https://discord.gg/4ftQqQ6)
+[Discord](https://discord.gg/4ftQqQ6)
 
