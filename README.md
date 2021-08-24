@@ -1,4 +1,4 @@
-# anime-character-random (Beta)
+# anime-character-random (1.0.9V LTS)
 #### example
 ```js
 const animeCharacter = require('anime-character-random')

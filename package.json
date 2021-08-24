@@ -2,6 +2,7 @@
   "name": "anime-character-random",
   "version": "1.0.9",
   "description": "Fetch Random Anime Characters",
+  "url":"http://reo-fernandes.herokuapp.com/",
   "keywords": [
     "Anime-character",
     "Anime-character-random",
