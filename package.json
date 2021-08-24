@@ -1,9 +1,10 @@
 {
   "name": "anime-character-random",
-  "version": "1.0.8",
-  "description": "get a random anime character",
+  "version": "1.0.9",
+  "description": "Fetch Random Anime Characters",
   "keywords": [
     "Anime-character",
+    "Anime-character-random",
     "Random-anime-character"
   ],
   "main": "index.js",
