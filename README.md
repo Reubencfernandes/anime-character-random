@@ -1,5 +1,8 @@
 # anime-character-random (1.0.9V LTS)
 #### example
+
+`npm install anime-character-random`
+
 ```js
 const animeCharacter = require('anime-character-random')
 animeCharacter.getRandomChar(function (anime) {
