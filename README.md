@@ -12,7 +12,8 @@ console.log(anime)
 
 
 
-# this package is in Beta testing
+# Support
 
 [Discord](https://discord.gg/4ftQqQ6)
+[github](https://github.com/gco360)
 
