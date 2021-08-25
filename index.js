@@ -8,7 +8,7 @@ const message =
 }
 exports.getRandomChar = (random) => {
 
-let limitid = Math.floor(Math.random() * 300)
+let limitid = Math.floor(Math.random() * 700)
 
   fetch(`https://myanimelist.net/topanime.php?limit=${limitid}`)
   .then(res => res.text())
