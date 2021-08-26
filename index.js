@@ -4,7 +4,11 @@ let $
 const message = 
 {
   status : '404',
-  message:'Couldnt Fetch Anything please Try Again'
+  title:'Couldnt Fetch Anything please Try Again',  
+  name:'Couldnt Fetch Anything please Try Again',
+  image:'https://storage.googleapis.com/support-forums-api/attachment/thread-12124675-17665953907180743904.png',
+  tags : ['Error','Error'],
+  japaneseName:"Couldnt Fetch Anything please Try Again"
 }
 exports.getRandomChar = (random) => {
 
@@ -30,7 +34,7 @@ let limitid = Math.floor(Math.random() * 700)
  const image = $('td[class="borderClass"] > div > a')[0].children[0].attribs['data-src']
 //console.log($('td[class="borderClass"] > div > a')[charid].children[0].attribs['data-src'])
 let arraydata
-if(name.split(',')[1] === undefined)
+if(name.split(',')[1])
 {
   arraydata = [name.split(',')[0],name.split(',')[1]]
 } else {
@@ -39,6 +43,7 @@ if(name.split(',')[1] === undefined)
 
 
 const animeCharacter = {
+  status:"200",
   difficulty:"null",
   title,
   name,
