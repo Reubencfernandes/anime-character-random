@@ -15,12 +15,25 @@ console.log(anime)
 
 ```js
 {
+  status:'200',
   difficulty: 'null',
   title:'Naruto',
   name: 'Kakashi Hatake',
   image:'https://cdn.myanimelist.net/images/characters/7/284129.jpg',
   tags: ['Kakashi', 'Hatake'],
   japaneseName:"Will be coming soon"
+}
+```
+#### In Case of An Error the Code Will handle things safely instead of making you Create an Error Handler
+
+```js
+{
+  status : '404',
+  title:'Couldnt Fetch Anything please Try Again',  
+  name:'Couldnt Fetch Anything please Try Again',
+  image:'https://storage.googleapis.com/support-forums-api/attachment/thread-12124675-17665953907180743904.png',
+  tags : ['エルロ','Error'],
+  japaneseName:"Couldnt Fetch Anything please Try Again"
 }
 ```
 
