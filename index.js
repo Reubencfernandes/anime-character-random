@@ -29,7 +29,14 @@ let limitid = Math.floor(Math.random() * 700)
       $ = cheerio.load(body)
  const image = $('td[class="borderClass"] > div > a')[0].children[0].attribs['data-src']
 //console.log($('td[class="borderClass"] > div > a')[charid].children[0].attribs['data-src'])
-let arraydata = [name.split(',')[0],name.split(',')[1]]
+let arraydata
+if(name.split(',')[1] === undefined)
+{
+  arraydata = [name.split(',')[0],name.split(',')[1]]
+} else {
+  arraydata = [name.split(',')[0],name.split(',')[0]]
+}
+
 
 const animeCharacter = {
   difficulty:"null",
