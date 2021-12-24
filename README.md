@@ -1,4 +1,4 @@
-# anime-character-random (1.0.9V LTS)
+# anime-character-random  1.0.10V Stable
 #### example
 
 `npm install anime-character-random`

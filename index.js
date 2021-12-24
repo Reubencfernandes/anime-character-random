@@ -7,7 +7,7 @@ const message =
   title:"Couldnt Fetch Anything please Try Again",  
   name:"Couldnt Fetch Anything please Try Again",
   image:"https://storage.googleapis.com/support-forums-api/attachment/thread-12124675-17665953907180743904.png",
-  tags : ["Error","Error"],
+  tags : ["エルロ","Error"],
   japaneseName:"Couldnt Fetch Anything please Try Again"
 }
 exports.getRandomChar = (random) => {
