@@ -1,9 +1,9 @@
 {
   "name": "anime-character-random",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Fetch Random Anime Characters",
-  "url":"http://reo-fernandes.herokuapp.com/",
-  "repository":"https://github.com/gco360/anime-character-random",
+  "url": "http://reo-fernandes.herokuapp.com/",
+  "repository": "https://github.com/gco360/anime-character-random",
   "keywords": [
     "Anime-character",
     "Anime-character-random",
@@ -17,7 +17,6 @@
   "license": "ISC",
   "dependencies": {
     "cheerio": "^1.0.0-rc.10",
-    "difficulty": "^1.2.0",
     "node-fetch": "^2.6.1"
   }
 }

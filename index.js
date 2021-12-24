@@ -3,8 +3,7 @@
 const fetch = require('node-fetch');
 const cheerio = require('cheerio');
 let $
-const message = 
-{
+const message = {
   status : '404',
   message:'Unable To fetch Character Data\n Please Try Again'
 }
