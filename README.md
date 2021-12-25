@@ -1,4 +1,4 @@
-# anime-character-random  1.0.10V Stable
+# anime-character-random  1.0.11V Stable
 #### example
 
 `npm install anime-character-random`
@@ -15,13 +15,12 @@ console.log(anime)
 
 ```js
 {
-  status:'200',
-  difficulty: 'null',
-  title:'Naruto',
-  name: 'Kakashi Hatake',
-  image:'https://cdn.myanimelist.net/images/characters/7/284129.jpg',
-  tags: ['Kakashi', 'Hatake'],
-  japaneseName:"Will be coming soon"
+  difficulty: 'Hard',
+  title: 'Kami nomi zo Shiru Sekai II',
+  name: 'Katsuragi, Keima',
+  image: 'https://cdn.myanimelist.net/images/characters/8/122018.jpg',
+  tags: [ 'Katsuragi', ' Keima' ],
+  japaneseName: '(桂木 桂馬)'
 }
 ```
 #### In Case of An Error the Code Will handle things safely instead of making you Create an Error Handler
@@ -29,11 +28,7 @@ console.log(anime)
 ```js
 {
   status : '404',
-  title:'Couldnt Fetch Anything please Try Again',  
-  name:'Couldnt Fetch Anything please Try Again',
-  image:'https://storage.googleapis.com/support-forums-api/attachment/thread-12124675-17665953907180743904.png',
-  tags : ['エルロ','Error'],
-  japaneseName:"Couldnt Fetch Anything please Try Again"
+  message:'Unable To fetch Character Data\n Please Try Again'
 }
 ```
 
