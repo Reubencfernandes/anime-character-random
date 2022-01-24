@@ -1,69 +1,58 @@
 /* Stable Version Of Package */
 
-const fetch = require('node-fetch');
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 const cheerio = require('cheerio');
-let $
-const message = {
-  status : '404',
-  message:'Unable To fetch Character Data\n Please Try Again'
+/**
+ * Variable used for handling cheerio
+ */
+let $;
+/**
+ * Pre-declared variable for the japanese name of the character.
+ */
+let japaneseName;
+
+const getRandomChar = async () => {
+
+    let limitID = Math.floor(Math.random() * 700);
+
+    const data = await fetch(`https://myanimelist.net/topanime.php?limit=${limitID}`);
+    const body = await data.text();
+    $ = cheerio.load(body);
+
+    let encodedData = await fetch(encodeURI($('td[class="title al va-t word-break"] > a')[0].attribs.href)).catch((err) => console.log(`random-anime-character || Error! ${err}`));
+    let parsedData = await encodedData.text();
+    $ = cheerio.load(parsedData);
+
+    let characterID = Math.floor(Math.random() * $('h3[class="h3_characters_voice_actors"] > a').length);
+    const title = $('div[class="h1-title"] > div >h1 ')[0].children[0].children[0].data;
+    const name = $('h3[class="h3_characters_voice_actors"] > a')[characterID].children[0].data;
+    let encodedData2 = await fetch(encodeURI($('h3[class="h3_characters_voice_actors"] > a')[characterID].attribs.href)).catch(err => cnsole.log('error!'));
+    let parsedData2 = await encodedData2.text();
+    $ = cheerio.load(parsedData2);
+
+
+    const image = $('td[class="borderClass"] > div > a')[0].children[0].attribs['data-src'];
+
+    if ($('h2[class="normal_header"] > span >small')[0].children[0].data !== undefined)
+        japaneseName = $('h2[class="normal_header"] > span >small')[0].children[0].data;
+
+    else
+        japaneseName = "Null";
+    let arrayData = [name.split(',')[0], name.split(',')[1]];
+    if (arrayData[1] === undefined)
+        arrayData[1] = arrayData[0];
+    /**
+     * 
+     */
+    const animeCharacter = {
+        title,
+        name,
+        image,
+        tags: arrayData,
+        japaneseName
+    };
+    return animeCharacter;
+
 }
-exports.getRandomChar = (random) => {
 
-let limitid = Math.floor(Math.random() * 700)
-
-  fetch(`https://myanimelist.net/topanime.php?limit=${limitid}`)
-  .then(res => res.text())
-  .then(body => {
-    $ = cheerio.load(body)
-    console.log($('td[class="title al va-t word-break"] > a')[0].attribs.href)
-    fetch(encodeURI($('td[class="title al va-t word-break"] > a')[0].attribs.href)).then(res => res.text())
-  .then(body => {
-    $ = cheerio.load(body)
-    let charid = Math.floor(Math.random() * $('h3[class="h3_characters_voice_actors"] > a').length )
-    const  title = $('div[class="h1-title"] > div >h1 ')[0].children[0].children[0].data
-     const name = $('h3[class="h3_characters_voice_actors"] > a')[charid].children[0].data
-     console.log($('h3[class="h3_characters_voice_actors"] > a')[charid].attribs.href)
-     fetch(encodeURI($('h3[class="h3_characters_voice_actors"] > a')[charid].attribs.href)).then(res => res.text())
-     .then(body => {
-      $ = cheerio.load(body)
- const image = $('td[class="borderClass"] > div > a')[0].children[0].attribs['data-src']
-
- let japaneseName 
-  if($('h2[class="normal_header"] > span >small')[0].children[0].data !== undefined)
- japaneseName = $('h2[class="normal_header"] > span >small')[0].children[0].data
- else
- japaneseName = "Null"
- 
-let arraydata = [name.split(',')[0],name.split(',')[1]]
-if(arraydata[1] === undefined)
-arraydata[1] = arraydata[0]
-
-const animeCharacter = {
-  difficulty:calculateRange(limitid),
-  title,
-  name,
-  image,
-  tags : arraydata,
-  japaneseName
- }
- random(animeCharacter)
-     })
-  }).catch(() => {
-    console.log('I couldnt Fetch The character')
-    random(message)
-  })
-  }).catch(() => console.log('I Couldnt Fetch the character Img'))
-}  
-
-function calculateRange(id)
-{
-
-  if(id<=50)
-  return "very Easy"
-  else if(id>50 && id<=150)
-  return "Easy"
-  else if(id>150 && id<=350)
-  return "Medium"
-  else if(id>350)
-  return "Hard"
-}
+module.exports = getRandomChar;
