@@ -1,75 +1,78 @@
-/* Beta Version Of Package */
 
-const fetch = require('node-fetch');
-const cheerio = require('cheerio');
-let $
-const message = {
-  status : '404',
-  message:'Unable To fetch Character Data\n Please Try Again'
+const fetch = require('node-fetch')
+const cheerio = require('cheerio')
+
+const scrapingHeaders = {
+  headers: {
+    accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+    'accept-language': 'en-US,en;q=0.9',
+    'cache-control': 'no-cache',
+    pragma: 'no-cache',
+    'sec-ch-ua': '"Chromium";v="104", " Not A;Brand";v="99", "Microsoft Edge";v="104"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'document',
+    'sec-fetch-mode': 'navigate',
+    'sec-fetch-site': 'same-origin',
+    'sec-fetch-user': '?1',
+    'upgrade-insecure-requests': '1'
+  },
+  referrer: 'https://myanimelist.net/topanime.php?limit=3',
+  referrerPolicy: 'strict-origin-when-cross-origin',
+  body: null,
+  method: 'GET',
+  mode: 'cors',
+  credentials: 'include'
 }
-exports.getRandomChar = (random) => {
 
-let limitid = Math.floor(Math.random() * 700)
-
-  fetch(`https://myanimelist.net/topanime.php?limit=${limitid}`)
-  .then(res => res.text())
-  .then(body => {
-    console.log("ありがとうございます")
-
-    $ = cheerio.load(body)
-    console.log($('td[class="title al va-t word-break"] > a')[0].attribs.href)
-    fetch(encodeURI($('td[class="title al va-t word-break"] > a')[0].attribs.href)).then(res => res.text())
-  .then(body => {
-    $ = cheerio.load(body)
-    let charid = Math.floor(Math.random() * $('h3[class="h3_characters_voice_actors"] > a').length )
-    console.log(charid)
-    const  title = $('div[class="h1-title"] > div >h1 ')[0].children[0].children[0].data
-     const name = $('h3[class="h3_characters_voice_actors"] > a')[charid].children[0].data
-     console.log($('h3[class="h3_characters_voice_actors"] > a')[charid].attribs.href)
-     fetch(encodeURI($('h3[class="h3_characters_voice_actors"] > a')[charid].attribs.href)).then(res => res.text())
-     .then(body => {
+let $
+let CharacterJapaneseName
+let animeCharacter
+const GetChar = async () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const limitid = Math.floor(Math.random() * 700)
+      const body = await (await fetch(`https://myanimelist.net/topanime.php?limit=${limitid}`, scrapingHeaders)).text()
       $ = cheerio.load(body)
- const image = $('td[class="borderClass"] > div > a')[0].children[0].attribs['data-src']
- // for japanese name
- console.log($('h2[class="normal_header"] > span >small')[0].children[0].data); 
- let japaneseName 
-  if($('h2[class="normal_header"] > span >small')[0].children[0].data !== undefined)
- japaneseName = $('h2[class="normal_header"] > span >small')[0].children[0].data
- else
- japaneseName = "Null"
- console.log(japaneseName,title)
- 
-//console.log($('td[class="borderClass"] > div > a')[charid].children[0].attribs['data-src'])
-let arraydata = [name.split(',')[0],name.split(',')[1]]
-if(arraydata[1] === undefined)
-arraydata[1] = arraydata[0]
+      const animeURL = $('a[class="hoverinfo_trigger fl-l ml12 mr8"]')[0].attribs.href
+      const result = await (await fetch(animeURL, scrapingHeaders)).text()
+      $ = cheerio.load(result)
 
-const animeCharacter = {
-  difficulty:calculateRange(limitid),
-  title,
-  name,
-  image,
-  tags : arraydata,
-  japaneseName
- }
- console.log(animeCharacter)
-     })
-  }).catch(() => {
-    console.log('I couldnt Fetch The character')
-    //random(message)
+      const charlength = $('h3[class="h3_characters_voice_actors"] > a').length
+      if (charlength <= 3) {
+        const refetchResult = await GetChar()
+        return resolve(refetchResult)
+      }
+
+      const charid = Math.floor(Math.random() * charlength)
+      const AnimeName = $('div[class="h1-title"] > div > h1')[0].children[0].children[0].data
+      const CharacterName = $('h3[class="h3_characters_voice_actors"] > a')[charid].children[0].data
+      const othernames = []
+      for (let i = 0; i < charlength; i++) othernames.push($('h3[class="h3_characters_voice_actors"] > a')[i].children[0].data)
+      const OtherCharacterList = othernames.filter((word) => word !== CharacterName)
+
+      const voiceActor = await (await fetch($('h3[class="h3_characters_voice_actors"] > a')[charid].attribs.href)).text()
+      $ = cheerio.load(voiceActor)
+      const CharacterImage = $('td[class="borderClass"] > div > a')[0].children[0].attribs['data-src']
+      if ($('h2[class="normal_header"] > span >small')[0].children[0].data !== undefined) {
+        CharacterJapaneseName = $('h2[class="normal_header"] > span >small')[0].children[0].data
+      } else {
+        CharacterJapaneseName = null
+      }
+      const arraydata = [CharacterName.split(',')[0], CharacterName.split(',')[1]]
+      if (arraydata[1] === undefined) arraydata[1] = arraydata[0]
+
+      animeCharacter = {
+        AnimeName,
+        CharacterName,
+        CharacterImage,
+        CharacterTag: arraydata,
+        CharacterJapaneseName,
+        OtherCharacterList
+      }
+      return resolve(animeCharacter)
+    } catch (err) {
+      reject(err)
+    }
   })
-  }).catch(() => console.log('I Couldnt Fetch the character Img'))
-}  
-
-function calculateRange(id)
-{
-
-  if(id<=50)
-  return "very Easy"
-  else if(id>50 && id<=150)
-  return "Easy"
-  else if(id>150 && id<=350)
-  return "Medium"
-  else if(id>350)
-  return "Hard"
 }
