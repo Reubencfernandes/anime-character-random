@@ -1,41 +1,44 @@
-# anime-character-random  1.0.11V Stable
-#### example
+<<<<<<< HEAD
+# anime-character-random  1.0.12V Stable ( August 2022 Released)
+## This Package Fetches Random Anime Character For You
 
 `npm install anime-character-random`
 
+#### Here is An Example Code
 ```js
-const animeCharacter = require('anime-character-random')
-animeCharacter.getRandomChar(function (anime) {
-
-console.log(anime)
-    
-})
+const randomChar = require('anime-character-random');
+(async () => {
+  console.log(await randomChar.GetChar())
+})()
 ```
-#### will Output
-
+#### Will Display This 
 ```js
 {
-  difficulty: 'Hard',
-  title: 'Kami nomi zo Shiru Sekai II',
-  name: 'Katsuragi, Keima',
-  image: 'https://cdn.myanimelist.net/images/characters/8/122018.jpg',
-  tags: [ 'Katsuragi', ' Keima' ],
-  japaneseName: '(桂木 桂馬)'
-}
+    AnimeName: 'Hikaru no Go',
+    CharacterName: 'Fujisaki, Akari',
+    CharacterImage: 'https://cdn.myanimelist.net/images/characters/15/28057.jpg',
+    CharacterTag: [ 'Fujisaki', ' Akari' ],
+    CharacterJapaneseName: '(藤崎 あかり)',
+    OtherCharacterList: [
+      'Fujiwara no, Sai',
+      'Shindou, Hikaru',
+      'Touya, Akira',
+      'Waya, Yoshitaka',
+      'Isumi, Shinichiro',
+      'Ogata, Seiji',
+      'Mitani, Yuki',
+      'Kaga, Tetsuo',
+      'Touya, Kouyou'
+    ]
+  }
 ```
-#### In Case of An Error the Code Will handle things safely instead of making you Create an Error Handler
-
-```js
-{
-  status : '404',
-  message:'Unable To fetch Character Data\n Please Try Again'
-}
-```
-
-# please note that This APi is For My personal use You are Free To Modify And Edit it. **But u Cant claim it to be yours**
+## I Also Want To Thank 3ddelano For Helping Me Out
+You Are Free to 
 
 #### Support
 
 [Discord](https://discord.gg/4ftQqQ6)
 [github](https://github.com/gco360)
+
+
 
