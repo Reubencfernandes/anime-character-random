@@ -1,29 +1,6 @@
 
 const fetch = require('node-fetch')
 const cheerio = require('cheerio')
-const scrapingHeaders = {
-  headers: {
-    accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
-    'accept-language': 'en-US,en;q=0.9',
-    'cache-control': 'no-cache',
-    pragma: 'no-cache',
-    'sec-ch-ua': '"Chromium";v="104", " Not A;Brand";v="99", "Microsoft Edge";v="104"',
-    'sec-ch-ua-mobile': '?0',
-    'sec-ch-ua-platform': '"Windows"',
-    'sec-fetch-dest': 'document',
-    'sec-fetch-mode': 'navigate',
-    'sec-fetch-site': 'same-origin',
-    'sec-fetch-user': '?1',
-    'upgrade-insecure-requests': '1'
-  },
-  referrer: 'https://myanimelist.net/topanime.php?limit=3',
-  referrerPolicy: 'strict-origin-when-cross-origin',
-  body: null,
-  method: 'GET',
-  mode: 'cors',
-  credentials: 'include'
-}
-
 let $
 let CharacterJapaneseName
 let animeCharacter
@@ -31,6 +8,28 @@ const GetChar = async () => {
   return new Promise(async (resolve, reject) => {
     try {
       const limitid = Math.floor(Math.random() * 700)
+      const scrapingHeaders = {
+        headers: {
+          accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+          'accept-language': 'en-US,en;q=0.9',
+          'cache-control': 'no-cache',
+          pragma: 'no-cache',
+          'sec-ch-ua': '"Chromium";v="104", " Not A;Brand";v="99", "Microsoft Edge";v="104"',
+          'sec-ch-ua-mobile': '?0',
+          'sec-ch-ua-platform': '"Windows"',
+          'sec-fetch-dest': 'document',
+          'sec-fetch-mode': 'navigate',
+          'sec-fetch-site': 'same-origin',
+          'sec-fetch-user': '?1',
+          'upgrade-insecure-requests': '1'
+        },
+        referrer: `https://myanimelist.net/topanime.php?limit=${limitid}`,
+        referrerPolicy: 'strict-origin-when-cross-origin',
+        body: null,
+        method: 'GET',
+        mode: 'cors',
+        credentials: 'include'
+      }
       const body = await (await fetch(`https://myanimelist.net/topanime.php?limit=${limitid}`, scrapingHeaders)).text()
       $ = cheerio.load(body)
       const animeURL = $('a[class="hoverinfo_trigger fl-l ml12 mr8"]')[0].attribs.href
@@ -75,4 +74,6 @@ const GetChar = async () => {
     }
   })
 }
-
+module.exports = {
+  GetChar
+}
